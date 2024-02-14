@@ -8,7 +8,7 @@ CD path/to/test_key.pem
 ```
 chomd 600  test_key.pem 
 ```
-3. After changing the permissions, connect to EC2 instanceusing the ssh command:
+3. After changing the permissions, connect to EC2 instance using the ssh command:
 ```
 ssh -i "path/to/test_key.pem" ec2-user@ec2-18-133-73-36.eu-west-2.compute.amazonaws.com
 ```
