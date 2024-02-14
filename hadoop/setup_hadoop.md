@@ -89,3 +89,22 @@ if current_word == word:
 ' > reducer.py
 
 ```
+
+4. Make Scripts Executable:
+Make sure your scripts are executable by running the following commands
+
+```
+chmod 777 mapper.py reducer.py
+```
+
+5.  Run Hadoop Streaming Job:
+Use the hadoop command with the -mapper, -reducer, and -input flags to specify your Python scripts and input data.
+
+```
+hadoop jar /opt/cloudera/parcels/CDH/lib/hadoop-mapreduce/hadoop-streaming.jar \
+-files mapper.py,reducer.py \
+-mapper "/usr/bin/python mapper.py" \
+-reducer "/usr/bin/python reducer.py"\
+ -input /tmp/USUK30/hocine/data/data.txt \
+ -output /tmp/USUK30/hocine/output1
+```
