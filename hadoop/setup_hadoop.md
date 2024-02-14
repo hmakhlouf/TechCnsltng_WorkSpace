@@ -16,7 +16,7 @@ Note that you need to replace `path/to/` with the actual directory where your pr
 
 ## Runing Hadoop Jobs in AWS Ec2 Instance 
 
-# I - word count using python
+### I - word count using python
 
 ```
 1. 
