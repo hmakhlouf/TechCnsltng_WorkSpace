@@ -1,8 +1,23 @@
 object S02_Val extends App {
 
-  val name = "Hocine"
+
+
+
+
+
+
+
+
+
+  val name: String = "Hocine"
 
   println(name)
+
+
+
+
+
+
 
 };
 

@@ -1,6 +1,10 @@
 object presentation_hocine extends App {
                   // App has main function
 
+
+
+
+
   // val a:Int = 1
   val a = 1
 
@@ -12,6 +16,10 @@ object presentation_hocine extends App {
   // val c : String = "Hello, Scala!"
   val c = "Hello, Scala!"
 
+
+  def addNumbers(a: Int, b: Int) = a + b
+
+  println(addNumbers(2,4))
 
 
 }
