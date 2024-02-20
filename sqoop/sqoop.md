@@ -98,12 +98,9 @@ LOCATION '/tmp/USUK30/hocine/datasq';
 
 ![Alt Text](/sqoop/us_states_cities_zipcodes_external.png)
 
-- 8.   
+- 8.   importing data 
+
 
 ```
-sqoop import --connect jdbc:postgresql://ec2-13-40-49-105.eu-west-2.compute.amazonaws.com:5432/testdb --username consultants --password WelcomeItc@2022  --table hocine_us_states  --target-dir /warehouse/tablespace/managed/hive/ofc5 --delete-target-dir --fields-terminated-by ","  --hive-import --create-hive-table --hive-table ofc5 -m 1 --hs2-url "jdbc:hive2://ip-172-31-3-80.eu-west-2.compute.internal:10000/default;"
+sqoop import --connect jdbc:postgresql://ec2-3-9-191-104.eu-west-2.compute.amazonaws.com:5432/testdb --username consultants --password WelcomeItc@2022  --table hocine_us_states  --target-dir /warehouse/tablespace/managed/hive/us_states_cities_zipcodes_external --delete-target-dir --fields-terminated-by ","  --hive-import --create-hive-table --hive-table us_states_cities_zipcodes_external -m 1 --hs2-url "jdbc:hive2://ip-172-31-3-80.eu-west-2.compute.internal:10000/default;"
 ```
-
-
-sqoop import --connect jdbc:postgresql://ec2-3-9-191-104.eu-west-2.compute.amazonaws.com:5432/testdb --username consultants --password WelcomeItc@2022  --table keith_sq  --target-dir /warehouse/tablespace/managed/hive/keith_test --delete-target-dir --fields-terminated-by ","  --hive-import --create-hive-table --hive-table keith_test -m 1 --hs2-url "jdbc:hive2://ip-172-31-3-80.eu-west-2.compute.internal:10000/default;"
-
