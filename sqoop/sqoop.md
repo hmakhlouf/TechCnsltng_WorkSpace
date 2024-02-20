@@ -27,7 +27,7 @@ VALUES
 ```
 select * from hocine_us_states hus ;
 ```
-![Alt Text](/sqoop/db.png)
+![Alt Text](/sqoop/png/db.png)
 - From terminal 
 
 1.  connect to ec2 using ssh, hdfs by runing these two commands :
@@ -67,7 +67,7 @@ hdfs dfs -ls /tmp/USUK30/hocine/sqoopdata
 ```
 hdfs dfs -cat /tmp/USUK30/hocine/sqoopdata/part-m-00000
 ```
-![Alt Text](/sqoop/sqoop_data.png)
+![Alt Text](/sqoop/png/sqoop_data.png)
 
 
 
@@ -96,7 +96,7 @@ LOCATION '/tmp/USUK30/hocine/datasq';
 ```
 - 7. show table 
 
-![Alt Text](/sqoop/us_states_cities_zipcodes_external.png)
+![Alt Text](/sqoop/png/us_states_cities_zipcodes_external.png)
 
 - 8.   importing data 
 
