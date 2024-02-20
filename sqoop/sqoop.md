@@ -4,17 +4,17 @@
 #### From Dbeaver side : 
 - create a table 
 
-'''
+```
 CREATE TABLE hocine_us_states (
   StateID SERIAL PRIMARY KEY,
    State VARCHAR(255),
    City VARCHAR(255),
    ZipCode VARCHAR(10)
 );
-'''
+```
 
 - insert data to the table 
-'''
+```
 INSERT INTO hocine_us_states (State, City, ZipCode)
 VALUES
 ('Alabama', 'Birmingham', '35203'),
@@ -22,8 +22,11 @@ VALUES
 ('Alabama', 'Montgomery', '36104'),
 ('Wyoming', 'Cheyenne', '82001'),
 ('Wyoming', 'Casper', '82601');
-select * from hocine_us_states hus ;
+```
 
+```
+select * from hocine_us_states hus ;
+```
 
 - From terminal 
 
