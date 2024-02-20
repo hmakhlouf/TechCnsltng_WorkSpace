@@ -95,9 +95,9 @@ FIELDS TERMINATED BY ','
 LOCATION '/tmp/USUK30/hocine/datasq';
 ```
 - 7. show table 
-```
+
 ![Alt Text](/sqoop/us_states_cities_zipcodes_external.png)
-```
+
 - 8.   
 
 ```
