@@ -31,7 +31,6 @@ select * from hocine_us_states hus ;
 ```
 ![Alt Text](/sqoop/png/db.png)
 
-------------
 
 ### Sqoop Commands for Data Transfer
 4. Connect to EC2 and Run Sqoop Commands:
@@ -72,7 +71,7 @@ hdfs dfs -cat /tmp/USUK30/hocine/sqoopdata/part-m-00000
 ```
 ![Alt Text](/sqoop/png/sqoop_data.png)
 
-------------
+
 
 ### Hive Table Creation and Data Import
 
@@ -97,7 +96,7 @@ LOCATION '/tmp/USUK30/hocine/datasq';
 8. Verify Hive External Table:
 
 ![Alt Text](/sqoop/png/us_states_cities_zipcodes_external.png)
-------------
+
 
 9. Import Data from PostgreSQL to Hive:
 
