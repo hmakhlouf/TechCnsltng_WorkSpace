@@ -60,7 +60,7 @@ hdfs dfs -ls /tmp/USUK30/hocine/sqoopdata
 5-
 hdfs dfs -cat /tmp/USUK30/hocine/sqoopdata/part-m-00000
 
-![Alt Text](/Users/hmakhlouf/Desktop/TechCnsltng_WorkSpace/sqoop/sqoop_data.png)
+![Alt Text](/sqoop/sqoop_data.png)
 
 
 
