@@ -52,24 +52,26 @@ ssh -i "test_key.pem" ec2-user@ec2-18-133-73-36.eu-west-2.compute.amazonaws.com
 
 - 1.  List existing Databases:
 ```
-sqoop list-databases 
---connect jdbc:postgresql://ec2-3-9-191-104.eu-west-2.compute.amazonaws.com:5432/testdb 
+sqoop list-databases \ 
+--connect jdbc:postgresql://ec2-3-9-191-104.eu-west-2.compute.amazonaws.com:5432/testdb \
 --username consultants -P
 ```
 - 2. List existing Tables:
 ``` 
-sqoop list-tables 
---connect jdbc:postgresql://ec2-3-9-191-104.eu-west-2.compute.amazonaws.com:5432/testdb 
---username consultants -P
+sqoop list-tables \
+--connect jdbc:postgresql://ec2-3-9-191-104.eu-west-2.compute.amazonaws.com:5432/testdb \
+--username consultants -P 
 ```
 - 3.  Import Data from PostgreSQL to HDFS:
 ```
-sqoop import 
---connect jdbc:postgresql://ec2-3-9-191-104.eu-west-2.compute.amazonaws.com:5432/testdb 
---username consultants 
---password WelcomeItc@2022 
---table hocine_us_states --m 1 
+sqoop import \
+--connect jdbc:postgresql://ec2-3-9-191-104.eu-west-2.compute.amazonaws.com:5432/testdb \
+--username consultants \
+--password WelcomeItc@2022 \
+--table hocine_us_states \
+--m 1 \
 --target-dir /tmp/USUK30/hocine/sqoopdata
+
 ```
 -  Check HDFS Directory:
 ```
@@ -113,15 +115,17 @@ LOCATION '/tmp/USUK30/hocine/datasq';
 
 ```
 sqoop import 
---connect jdbc:postgresql://ec2-3-9-191-104.eu-west-2.compute.amazonaws.com:5432/testdb 
---username consultants 
---password WelcomeItc@2022  
---table hocine_us_states  
---target-dir /warehouse/tablespace/managed/hive/us_states_cities_zipcodes_external 
---delete-target-dir 
---fields-terminated-by ","  
---hive-import 
---create-hive-table 
---hive-table us_states_cities_zipcodes_external -m 1 
---hs2-url "jdbc:hive2://ip-172-31-3-80.eu-west-2.compute.internal:10000/default;"
+sqoop import \
+--connect jdbc:postgresql://ec2-3-9-191-104.eu-west-2.compute.amazonaws.com:5432/testdb \
+--username consultants \
+--password WelcomeItc@2022 \
+--table hocine_us_states \
+--target-dir /warehouse/tablespace/managed/hive/us_states_cities_zipcodes_external \
+--delete-target-dir \
+--fields-terminated-by "," \
+--hive-import \
+--create-hive-table \
+--hive-table us_states_cities_zipcodes_external \
+-m 1 \
+--hs2-url "jdbc:hive2://ip-172-31-3-80.eu-west-2.compute.internal:10000/default"
 ```
