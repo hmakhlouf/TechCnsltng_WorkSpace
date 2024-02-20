@@ -50,14 +50,14 @@ ssh -i "test_key.pem" ec2-user@ec2-18-133-73-36.eu-west-2.compute.amazonaws.com
 
 5. Sqoop Commands:
 
-- 1.  List existing Databases:
+- 1.  List  Databases:
 ```
 sqoop list-databases \
 --connect jdbc:postgresql://ec2-3-9-191-104.eu-west-2.compute.amazonaws.com:5432/testdb \
 --username consultants -P
 
 ```
-- 2. List existing Tables:
+- 2. List Tables:
 ``` 
 sqoop list-tables \
 --connect jdbc:postgresql://ec2-3-9-191-104.eu-west-2.compute.amazonaws.com:5432/testdb \
