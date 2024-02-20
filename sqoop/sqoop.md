@@ -27,7 +27,7 @@ VALUES
 ```
 select * from hocine_us_states hus ;
 ```
-
+![Alt Text](/sqoop/db.png)
 - From terminal 
 
 1.  connect to ec2 using ssh, hdfs by runing these two commands :
