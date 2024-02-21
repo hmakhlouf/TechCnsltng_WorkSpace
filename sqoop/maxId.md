@@ -35,6 +35,9 @@ Create an external Hive table on top of the imported data.
 
 . Retrieve records from the PostgreSQL table where ID is greater than the previously identified max ID.
 
+-----------------------------
+-----------------------------
+
 
 
 
