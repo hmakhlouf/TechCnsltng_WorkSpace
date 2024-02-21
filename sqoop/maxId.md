@@ -73,7 +73,7 @@ select * from hocine_us_states hus ;
 
 ------------
 
-### Sqoop Commands for Data Transfer
+## Sqoop Commands for Data Transfer
 4. Connect to EC2 and Run Sqoop Commands:
 
 - CD to path/to/test_key.pem
@@ -113,7 +113,7 @@ hdfs dfs -cat /tmp/USUK30/hocine/sqoopdata/part-m-00000
 
 ------------
 
-### Hive Table Creation and Data Import
+## Hive Table Creation and Data Import
 
 6. Connect to Hive:
 
@@ -148,7 +148,7 @@ select * from us_states_exformaxid;
 
 If the PostgreSQL data is expected to change over time, you may want to periodically update the HDFS directory by re-running Sqoop or using a scheduled process. This ensures that your external table in Hive stays synchronized with the latest data from PostgreSQL.
 
-- in the case of re-running sqoop follow these steps by creating scripts 
+### in the case of re-running sqoop follow these steps by creating scripts 
 
 1. Create the Sqoop Import Script:
 
