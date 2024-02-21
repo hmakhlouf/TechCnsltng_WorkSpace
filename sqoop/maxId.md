@@ -1,3 +1,44 @@
+----------------------------
+----------------------------
+
+## Task Summary
+1. Create PostgreSQL Table:
+
+. Create a table named your_table_name in PostgreSQL.
+
+2. Insert Records with Primary Key:
+
+. Add 10 records to the table with a primary key constraint.
+
+3. Sqoop Import to HDFS:
+
+. Use Sqoop to import data from PostgreSQL to HDFS.
+Create an external Hive table on top of the imported data.
+
+4. Hive Shell Script to Find Max ID:
+
+. Write a Hive shell script to find the maximum ID from the external table.
+
+5. Pass Max ID to Sqoop Condition:
+
+. Utilize the max ID obtained from the Hive script in Sqoop conditions.
+
+6. Reload New Data to HDFS:
+
+. Load the newly conditioned data back to HDFS using Sqoop.
+
+7. Add Additional Records to PostgreSQL:
+
+. Insert 10 more records to the PostgreSQL table.
+
+8. Select Records Based on Condition:
+
+. Retrieve records from the PostgreSQL table where ID is greater than the previously identified max ID.
+
+
+
+
+
 #### PostgreSQL Table Creation and Data Insertion
 1. Create a Table in PostgreSQL using DBeaver:
 
@@ -172,3 +213,4 @@ select * from us_states_exformaxid;
 ```
 
 ![Alt Text](/sqoop/png/new_external_table_for_maxid.png)
+
