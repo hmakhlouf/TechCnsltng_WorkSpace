@@ -217,3 +217,59 @@ select * from us_states_exformaxid;
 
 ![Alt Text](/sqoop/png/new_external_table_for_maxid.png)
 
+
+
+# Step 3: Read the max id from Hive using a shell script
+
+ 1. Create a shell script (get_maxid.sh):
+
+ from terminal @ ec2 instance @ /home/ec2-user/BD_USUK_30012024/hocine/scripts
+
+ ```
+ nano get_maxid.sh
+ ```
+ - Paste the following code into the file and save it:
+
+```
+#!/bin/bash
+
+max_id=$(hive -S -e "SELECT MAX(stateid) FROM us_states_exformaxid;")
+echo "Max ID: $max_id"
+
+```
+or 
+
+```
+
+max_id=$(impala-shell -i ip-172-31-14-3.eu-west-2.compute.internal -d default -q "SELECT MAX(stateid) FROM us_states_exformaxid;" | grep -oP '^\|\s+\K\d+' | head -1)
+```
+2. Make it executable:
+
+```
+chmod +x get_maxid.sh
+```
+
+3. Run the script:
+
+```
+./get_maxid.sh
+```
+
+# Step 4: Pass the max id to Sqoop and load new data to HDFS
+
+```
+sqoop import \
+    --connect jdbc:postgresql://ec2-3-9-191-104.eu-west-2.compute.amazonaws.com:5432/testdb \
+    --username consultants \
+    --password WelcomeItc@2022 \
+    --query "SELECT MAX(stateid) FROM public.hocine_us_states where hocine_us_states.stateid > ${max_id} AND \$CONDITIONS" \
+    --target-dir /tmp/USUK30/hocine/sqoopdata_new \
+    --split-by hocine_us_states.stateid \
+    --as-textfile
+
+    ```
+
+    
+
+
+
