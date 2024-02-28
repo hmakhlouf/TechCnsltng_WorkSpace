@@ -11,7 +11,7 @@ schema = StructType([
     StructField("id", IntegerType(), False),
     StructField("value", IntegerType(), True)
 ])
-
+# test
 # Generate random data
 data = [(i, i * 2) for i in range(10)]
 
