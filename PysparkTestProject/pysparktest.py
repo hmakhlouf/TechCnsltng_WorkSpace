@@ -1,22 +1,22 @@
 from pyspark.sql import SparkSession
-from pyspark.sql.types import StructType, StructField, IntegerType
 
+# Create a Spark session
+spark = SparkSession.builder.appName("project-1").getOrCreate()
 
+# Read CSV file into a DataFrame
+csv_file_path = "/Users/hmakhlouf/Desktop/TechCnsltng_WorkSpace/data/project-1-data/car_insurance_claim.csv"
+df = spark.read.csv(csv_file_path, header=True, inferSchema=True)
 
-# Initialize SparkSession
-spark = SparkSession.builder.appName("RandomDataFrame").getOrCreate()
+# Perform analytics or transformations on the DataFrame
+# For example, let's create a new DataFrame with some transformation
+# transformed_df = df.select("column1", "column2", ...)
 
-# Define schema for DataFrame
-schema = StructType([
-    StructField("id", IntegerType(), False),
-    StructField("value", IntegerType(), True)
-])
-# test
-# Generate random data
-data = [(i, i * 2) for i in range(10)]
+# Specify the HDFS path to save the result
+# HDFS output path on your Hadoop cluster (replace with the actual hostname or IP)
+hdfs_output_path = "hdfs://ec2-18-133-73-36.eu-west-2.compute.amazonaws.com:9000//tmp/USUK30/hocine/project-1"
 
-# Create DataFrame from random data
-df = spark.createDataFrame(data, schema)
-
-# Show DataFrame
-df.show()
+# Save the DataFrame to HDFS
+# transformed_df.write.parquet(hdfs_output_path, mode="overwrite")
+df.write.parquet(hdfs_output_path, mode="overwrite")
+# Stop the Spark session
+spark.stop()
