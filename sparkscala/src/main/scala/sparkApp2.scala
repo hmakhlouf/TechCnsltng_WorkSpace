@@ -14,7 +14,7 @@ object sparkApp2 {
 
     df.show()
 
-    // Always stop SparkSession at the end
+    // Always stop SparkSession at the end ---
     spark.stop()
   }
 
