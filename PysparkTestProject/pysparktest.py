@@ -34,6 +34,6 @@ df_postgres.show()
 # df_transformed.write.mode("overwrite").parquet(full_load_output_path)
 
 ## Full data  Load to hdfs
-df_postgres.write.mode("overwrite").text(full_load_output_path)
+df_postgres.write.mode("overwrite") #.text(full_load_output_path)
 
 
