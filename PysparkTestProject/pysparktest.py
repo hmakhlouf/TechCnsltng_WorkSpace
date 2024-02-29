@@ -12,7 +12,8 @@ postgres_properties = {
 }
 
 # PostgreSQL table name
-postgres_table_name = "car-insurance-claims"
+postgres_table_name = '"car-insurance-claims"'
+
 
 # Read data from PostgreSQL
 df_postgres = spark.read.jdbc(url=postgres_url, table=postgres_table_name, properties=postgres_properties)
