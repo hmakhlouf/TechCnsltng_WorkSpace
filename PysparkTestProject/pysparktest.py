@@ -35,7 +35,7 @@ df_postgres = spark.read.jdbc(url=postgres_url, table=table_name, properties=pos
 # df_transformed.write.mode("overwrite").parquet(full_load_output_path)
 
 ## Full Load data to hdfs
-df_postgres.write.mode("overwrite")  #.parquet(full_load_output_path)
+df_postgres.write.mode("overwrite").text("/tmp/USUK30/hocine/project-1/full_load_data")
 
 # Incremental Load: Append transformed data to existing data in HDFS
 # df_transformed.write.mode("append").parquet(incremental_load_output_path)
