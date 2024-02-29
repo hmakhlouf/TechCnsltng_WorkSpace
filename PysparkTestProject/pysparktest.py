@@ -22,7 +22,9 @@ hive_database_name = "USUK30"
 hive_table_name = "carInsuranceClaims"
 
 # Save data to Hive
-df_postgres.write.mode("overwrite").saveAsTable(f"{hive_database_name}.{hive_table_name}")
+#df_postgres.write.mode("overwrite").saveAsTable(f"{hive_database_name}.{hive_table_name}")
+df_postgres.write.mode("overwrite").saveAsTable("{}.{}".format(hive_database_name, hive_table_name))
+
 
 # Stop Spark session
 spark.stop()
