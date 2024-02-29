@@ -26,7 +26,9 @@ hive_database_name = "project1db"
 hive_table_name = "carInsuranceClaims"
 
 # Save data to Hive
-df_postgres.write.mode("overwrite").saveAsTable(f"{hive_database_name}.{hive_table_name}")
+#df_postgres.write.mode("overwrite").saveAsTable(f"{hive_database_name}.{hive_table_name}")
+df_postgres.write.mode("overwrite").saveAsTable("{}.{}".format(hive_database_name, hive_table_name))
+
 #df_postgres.write.mode("overwrite").saveAsTable("{}.{}".format(hive_database_name, hive_table_name))
 
 #df_postgres.write.mode("overwrite").saveAsTable("project1db.{}".format(hive_table_name))
