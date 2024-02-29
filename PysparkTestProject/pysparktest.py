@@ -31,7 +31,7 @@ df_postgres.show()
 # full load data to hive
 
 # Create database
-spark.sql("CREATE DATABASE IF NOT EXISTS project1db")
+spark.sql("CREATE DATABASE IF NOT EXISTS projectdb")
 
 # Hive database and table names
 hive_database_name = "project1db"
