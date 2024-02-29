@@ -31,12 +31,11 @@ df_postgres.show()
 # full load data to hive
 
 # Create database
-#spark.sql("CREATE DATABASE IF NOT EXISTS project1db")
+spark.sql("CREATE DATABASE IF NOT EXISTS project1db")
 
 # Hive database and table names
 hive_database_name = "project1db"
 hive_table_name = "carInsuranceClaims"
-
 
 # Create Hive Internal table
 df_postgres.write.mode('overwrite') \
