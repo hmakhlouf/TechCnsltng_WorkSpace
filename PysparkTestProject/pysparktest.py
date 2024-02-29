@@ -39,7 +39,7 @@ hive_table_name = "carInsuranceClaims"
 
 # Create Hive Internal table
 df_postgres.write.mode('overwrite') \
-    .saveAsTable("hive_database_name.hive_table_name")
+    .saveAsTable(hive_database_name.hive_table_name)
 
 # Read Hive table
 df = spark.read.table("hive_table_name")
