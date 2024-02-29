@@ -34,12 +34,12 @@ df_postgres.show()
 spark.sql("CREATE DATABASE IF NOT EXISTS projectdb")
 
 # Hive database and table names
-hive_database_name = "project1db"
-hive_table_name = "carInsuranceClaims"
+#hive_database_name = "project1db"
+#hive_table_name = "carInsuranceClaims"
 
 # Create Hive Internal table
 df_postgres.write.mode('overwrite') \
-    .saveAsTable(hive_database_name.hive_table_name)
+    .saveAsTable("project1db.carInsuranceClaims")
 
 # Read Hive table
 df = spark.read.table("hive_table_name")
