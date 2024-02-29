@@ -4,10 +4,11 @@ from pyspark.sql.functions import col
 # Initialize Spark session
 spark = SparkSession.builder \
     .appName("CarInsuranceClaimsApp") \
-    #.config("spark.jars", "/Users/hmakhlouf/Desktop/TechCnsltng_WorkSpace/config/postgresql-42.7.2.jar") \
     .config("spark.hadoop.fs.defaultFS", "hdfs://ec2-18-133-73-36.eu-west-2.compute.amazonaws.com:9000") \
     .config("spark.hadoop.fs.hdfs.impl", "org.apache.hadoop.hdfs.DistributedFileSystem") \
     .getOrCreate()
+
+#.config("spark.jars", "/Users/hmakhlouf/Desktop/TechCnsltng_WorkSpace/config/postgresql-42.7.2.jar") \
 
 
 # PostgreSQL's connection details
