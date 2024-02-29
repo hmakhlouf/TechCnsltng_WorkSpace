@@ -12,7 +12,7 @@ postgres_properties = {
 }
 
 # PostgreSQL table name
-postgres_table_name = '"car-insurance-claims"'
+postgres_table_name = "car_insurance_claims"
 
 
 # Read data from PostgreSQL
