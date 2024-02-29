@@ -42,7 +42,7 @@ df_postgres.write.mode('overwrite') \
     .saveAsTable("project1db.carInsuranceClaims")
 
 # Read Hive table
-df = spark.read.table("hive_table_name")
+df = spark.read.table("project1db.carInsuranceClaims")
 df.show()
 
 # Stop Spark session
