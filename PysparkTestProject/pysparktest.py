@@ -19,7 +19,7 @@ postgres_table_name = "car_insurance_claims"
 df_postgres = spark.read.jdbc(url=postgres_url, table=postgres_table_name, properties=postgres_properties)
 
 # Hive database and table names
-hive_database_name = "USUK30"
+hive_database_name = "project1db"
 hive_table_name = "carInsuranceClaims"
 
 # Save data to Hive
