@@ -4,10 +4,8 @@ from pyspark.sql import SparkSession
 spark = SparkSession.builder \
     .appName("carInsuranceClaimsApp") \
     .enableHiveSupport() \
-    .config("spark.jars", "/Users/hmakhlouf/Desktop/TechCnsltng_WorkSpace/config/postgresql-42.7.2.jar") \
     .getOrCreate()
-
-
+#.config("spark.jars", "/Users/hmakhlouf/Desktop/TechCnsltng_WorkSpace/config/postgresql-42.7.2.jar") \
 # PostgreSQL connection properties
 postgres_url = "jdbc:postgresql://ec2-3-9-191-104.eu-west-2.compute.amazonaws.com:5432/testdb"
 postgres_properties = {
