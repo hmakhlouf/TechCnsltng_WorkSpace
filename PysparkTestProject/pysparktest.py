@@ -27,10 +27,11 @@ df_postgres = spark.read.jdbc(url=postgres_url, table=postgres_table_name, prope
 df_postgres.show()
 
 
+
 # full load data to hive
 
 # Create database
-spark.sql("CREATE DATABASE IF NOT EXISTS project1db")
+#spark.sql("CREATE DATABASE IF NOT EXISTS project1db")
 
 # Hive database and table names
 hive_database_name = "project1db"
