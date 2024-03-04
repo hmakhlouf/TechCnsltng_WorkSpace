@@ -19,7 +19,7 @@ postgres_table_name = "car_insurance_claims"
 
 # hive database and table names
 hive_database_name = "project1db"
-hive_table_name = "carInsuranceClaims"
+hive_table_name = "carinsuranceclaims"
 
 
 # 2. Load new data dataset from PostgresSQL:
@@ -28,12 +28,17 @@ new_data.show(3)
 
 # 3. Load the existing_data in hive table
 existing_hive_data = spark.read.table("{}.{}".format(hive_database_name, hive_table_name))
+
+existing_hive_data = spark.read.table("project1db.carinsuranceclaims")
+
 existing_hive_data.show(3)
 
 
 # 4. Determine the incremental data
-# incremental_data = new_data.filter(~col("ID").isin(existing_hive_data.select("ID")))
-incremental_data = new_data.filter(~new_data.ID.isin(existing_hive_data.select("ID")))
+incremental_data = new_data.filter(~col("id").isin(existing_hive_data.select("id")))
+
+
+#incremental_data = new_data.filter(~new_data.ID.isin(existing_hive_data.select("ID")))
 # 5.  Adding the new records to the existing hive table
 new_hive_table = existing_hive_data.union(incremental_data)
 
