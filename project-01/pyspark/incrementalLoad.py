@@ -26,11 +26,11 @@ hive_table_name = "carInsuranceClaims"
 
 # 2. Load new data dataset from PostgresSQL:
 new_data = spark.read.jdbc(url=postgres_url, table=postgres_table_name, properties=postgres_properties)
-new_data.show()
+new_data.show(3)
 
 # 3. Load the existing_data in hive table
 existing_hive_data = spark.read.table("{}.{}".format(hive_database_name, hive_table_name))
-existing_hive_data.show()
+existing_hive_data.show(3)
 
 # 4. Determine the incremental data
 
@@ -39,6 +39,7 @@ incremental_data = new_data.filter(~col("ID").isin(existing_hive_data.select("ID
 
 # Adding the new records to the existing hive table
 new_hive_table = existing_hive_data.union(incremental_data)
+
 
 # Writing the updated DataFrame back to the Hive table
 new_hive_table.write.mode("overwrite").saveAsTable("your_existing_table")
