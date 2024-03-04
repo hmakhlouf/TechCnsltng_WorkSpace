@@ -9,11 +9,6 @@ spark = SparkSession.builder \
 # .config("spark.jars", "/Users/hmakhlouf/Desktop/TechCnsltng_WorkSpace/config/postgresql-42.7.2.jar") \
 
 
-
-
-## 1- Establish the connection to PostgreSQL and read data from the postgress Database -testdb
-
-
 # PostgresSQL connection properties
 postgres_url = "jdbc:postgresql://ec2-3-9-191-104.eu-west-2.compute.amazonaws.com:5432/testdb"
 postgres_properties = {
@@ -27,19 +22,7 @@ postgres_table_name = "car_insurance_claims"
 df_postgres = spark.read.jdbc(url=postgres_url, table=postgres_table_name, properties=postgres_properties)
 df_postgres.show()
 
-# Create database
-spark.sql("CREATE DATABASE IF NOT EXISTS project1db")
 
-# Hive database and table names
-hive_database_name = "project1db"
-hive_table_name = "carInsuranceClaims"
+# Transformations
 
-# Create Hive Internal table over project1db
-df_postgres.write.mode('overwrite').saveAsTable("{}.{}".format(hive_database_name, hive_table_name))
 
-# Read Hive table
-df = spark.read.table("{}.{}".format(hive_database_name, hive_table_name))
-df.show()
-
-# Stop Spark session
-spark.stop()
