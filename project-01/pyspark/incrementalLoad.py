@@ -3,10 +3,7 @@ from pyspark.sql import SparkSession
 from pyspark.sql.functions import col
 
 # Create spark session with hive enabled
-spark = SparkSession.builder \
-    .appName("carInsuranceClaimsApp") \
-    .enableHiveSupport() \
-    .getOrCreate()
+spark = SparkSession.builder.appName("carInsuranceClaimsApp").enableHiveSupport().getOrCreate()
 # .config("spark.jars", "/Users/hmakhlouf/Desktop/TechCnsltng_WorkSpace/config/postgresql-42.7.2.jar") \
 
 # 1- Establish the connection to PostgresSQL and Redshift:
@@ -24,6 +21,7 @@ postgres_table_name = "car_insurance_claims"
 hive_database_name = "project1db"
 hive_table_name = "carInsuranceClaims"
 
+
 # 2. Load new data dataset from PostgresSQL:
 new_data = spark.read.jdbc(url=postgres_url, table=postgres_table_name, properties=postgres_properties)
 new_data.show(3)
@@ -32,16 +30,15 @@ new_data.show(3)
 existing_hive_data = spark.read.table("{}.{}".format(hive_database_name, hive_table_name))
 existing_hive_data.show(3)
 
+
 # 4. Determine the incremental data
-
-# Apply transformations and filters to identify changed records
-incremental_data = new_data.filter(~col("ID").isin(existing_hive_data.select("ID")))
-
-# Adding the new records to the existing hive table
+# incremental_data = new_data.filter(~col("ID").isin(existing_hive_data.select("ID")))
+incremental_data = new_data.filter(~new_data.ID.isin(existing_hive_data.select("ID")))
+# 5.  Adding the new records to the existing hive table
 new_hive_table = existing_hive_data.union(incremental_data)
 
 
-# Writing the updated DataFrame back to the Hive table
+# 6 . Writing the updated DataFrame back to the Hive table
 new_hive_table.write.mode("overwrite").saveAsTable("your_existing_table")
 
 
