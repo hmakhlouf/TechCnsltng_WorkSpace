@@ -38,7 +38,7 @@ existing_hive_data.show(3)
 
 incremental_data = new_data.join(existing_hive_data.select("id"), new_data["id"] == existing_hive_data["id"], "left_anti")
 
-
+incremental_data.show(3)
 #incremental_data = new_data.filter(~col("id").isin(existing_hive_data.select("id")))
 
 
