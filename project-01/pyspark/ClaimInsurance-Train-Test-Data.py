@@ -29,8 +29,11 @@ df_postgres.show()
 # Split data into train and test (60% train, 40% test)
 train_df, test_df = df_postgres.randomSplit([0.6, 0.4], seed=42)
 
+train_df.show(5)
+test_df.show(5)
+
 # naming tables
-train_table_name = "claim_carinsuranceclaims"
+train_table_name = "train_carinsuranceclaims"
 test_table_name = "test_carinsuranceclaims"
 
 # Save train_df and test_df back to PostgresSQL
