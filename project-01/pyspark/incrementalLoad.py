@@ -35,15 +35,17 @@ existing_hive_data.show(3)
 
 
 # 4. Determine the incremental data
-incremental_data = new_data.filter(~col("id").isin(existing_hive_data.select("id")))
+
+incremental_data = new_data.join(existing_hive_data.select("id"), new_data["id"] == existing_hive_data["id"], "left_anti")
 
 
-#incremental_data = new_data.filter(~new_data.ID.isin(existing_hive_data.select("ID")))
+#incremental_data = new_data.filter(~col("id").isin(existing_hive_data.select("id")))
+
 
 
 # 5.  Adding the new records to the existing hive table
 new_hive_table = existing_hive_data.union(incremental_data)
-
+new_hive_table.show(3)
 
 # 6 . Writing the updated DataFrame back to the Hive table
 new_hive_table.write.mode("overwrite").saveAsTable("your_existing_table")
