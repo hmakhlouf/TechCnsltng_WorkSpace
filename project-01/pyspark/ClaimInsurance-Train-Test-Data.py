@@ -26,3 +26,21 @@ df_postgres.show()
 # Transformations
 
 
+# Split data into train and test (60% train, 40% test)
+train_df, test_df = df_postgres.randomSplit([0.6, 0.4], seed=42)
+
+# naming tables
+train_table_name = "claim_carinsuranceclaims"
+test_table_name = "test_carinsuranceclaims"
+
+# Save train_df and test_df back to PostgresSQL
+train_df.write.jdbc(url=postgres_url, table=train_table_name, mode="overwrite", properties=postgres_properties)
+test_df.write.jdbc(url=postgres_url, table=test_table_name, mode="overwrite", properties=postgres_properties)
+
+
+# load train and test df to hive project1db database
+# Create Hive Internal table over project1db
+hive_database_name = "project1db"
+df_postgres.write.mode('overwrite').saveAsTable("{}.{}".format(hive_database_name, train_table_name))
+df_postgres.write.mode('overwrite').saveAsTable("{}.{}".format(hive_database_name, test_table_name))
+
