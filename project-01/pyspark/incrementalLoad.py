@@ -38,7 +38,7 @@ existing_hive_data.show(3)
 
 incremental_data = new_data.join(existing_hive_data.select("id"), new_data["id"] == existing_hive_data["id"], "left_anti")
 
-incremental_data.show(3)
+incremental_data.show()
 #incremental_data = new_data.filter(~col("id").isin(existing_hive_data.select("id")))
 
 
@@ -46,6 +46,11 @@ incremental_data.show(3)
 # 5.  Adding the new records to the existing hive table
 new_hive_table = existing_hive_data.union(incremental_data)
 new_hive_table.show(3)
+
+newDataHive_df = spark.sql("SELECT * FROM project1db.carinsuranceclaims cic WHERE cic.ID = 1 OR cic.ID = 2")
+
+# Show the result
+newDataHive_df.show()
 
 # 6 . Writing the updated DataFrame back to the Hive table
 new_hive_table.write.mode("overwrite").saveAsTable("your_existing_table")
