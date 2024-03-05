@@ -11,9 +11,7 @@ spark = SparkSession.builder \
 
 
 
-## 1- Establish the connection to PostgreSQL and read data from the postgress Database -testdb
-
-
+## 1- Establish the connection to PostgresSQL and read data from the postgres Database -testdb
 # PostgresSQL connection properties
 postgres_url = "jdbc:postgresql://ec2-3-9-191-104.eu-west-2.compute.amazonaws.com:5432/testdb"
 postgres_properties = {
@@ -27,6 +25,8 @@ postgres_table_name = "car_insurance_claims"
 df_postgres = spark.read.jdbc(url=postgres_url, table=postgres_table_name, properties=postgres_properties)
 df_postgres.show()
 
+
+## 2. load df_postgres to hive table 
 # Create database
 spark.sql("CREATE DATABASE IF NOT EXISTS project1db")
 
