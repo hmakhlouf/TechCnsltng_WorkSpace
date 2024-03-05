@@ -47,9 +47,8 @@ incremental_data.show()
 new_hive_table = existing_hive_data.union(incremental_data)
 new_hive_table.show(3)
 
+# Show the new  records in hive table 
 newDataHive_df = spark.sql("SELECT * FROM project1db.carinsuranceclaims cic WHERE cic.ID = 1 OR cic.ID = 2")
-
-# Show the result
 newDataHive_df.show()
 
 # 6 . Writing the updated DataFrame back to the Hive table
