@@ -33,7 +33,11 @@ postgres_df.show(3)
 
 # Rename column from "ID" to "policy_number"
 postgres_df = postgres_df.withColumnRenamed("ID", "policy_number")
+postgres_df.show(3)
 
+# Use Spark SQL to rename the column in Hive
+spark.sql("USE hive_database_name")  # Replace with your Hive database name
+spark.sql("ALTER TABLE your_hive_table_name CHANGE COLUMN ID policy_number INT")
 
 #-+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+-
 #-+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+-
