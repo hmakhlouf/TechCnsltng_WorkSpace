@@ -1,6 +1,6 @@
 from os.path import abspath
 from pyspark.sql import SparkSession
-from pyspark.sql.functions import regexp_replace
+from pyspark.sql.functions import regexp_replace, col
 
 # Create spark session with hive enabled
 spark = SparkSession.builder \
@@ -43,7 +43,7 @@ df_postgres.show(3)
 columns_to_modify = "STATUS"
 
 # Modify string values by removing "z_"
-postgres_df = postgres_df.withColumn(columns_to_modify, regexp_replace(col(columns_to_modify), "^z_", ""))
+postgres_df = df_postgres.withColumn(columns_to_modify, regexp_replace(col(columns_to_modify), "^z_", ""))
 
 
 #-+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+-
