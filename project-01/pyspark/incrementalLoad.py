@@ -31,6 +31,19 @@ postgres_df.show(3)
 existing_hive_data = spark.read.table("{}.{}".format(hive_database_name, hive_table_name))    #table("project1db.carinsuranceclaims")
 existing_hive_data.show(3)
 
+
+#-+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+-
+#-+-+--+-+--+-+--+-+--+-+-Transformations-+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--
+#-+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+-
+
+# Rename column from "ID" to "policy_number"
+postgres_df = postgres_df.withColumnRenamed("ID", "POLICY_NUMBER")
+postgres_df.show(3)
+# Use Spark SQL to rename the column in Hive can not be made => remember hive table are made immutable and can not be updated
+#spark.sql("USE {}".format(hive_database_name))
+#spark.sql("ALTER TABLE {} REPLACE COLUMN ID POLICY_NUMBER INT".format(hive_table_name))
+
+
 # 4. Determine the incremental data
 #incremental_data_df = postgres_df.join(existing_hive_data.select("id"), postgres_df["id"] == existing_hive_data["id"], "left_anti")
 incremental_data_df = postgres_df.join(existing_hive_data.select("POLICY_NUMBER"), postgres_df["POLICY_NUMBER"] == existing_hive_data["POLICY_NUMBER"], "left_anti")
@@ -57,15 +70,6 @@ else:
 #-+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+-
 #-+-+--+-+--+-+--+-+--+-+-Transformations-+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--
 #-+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+-
-
-# Rename column from "ID" to "policy_number"
-postgres_df = postgres_df.withColumnRenamed("ID", "POLICY_NUMBER")
-postgres_df.show(3)
-# Use Spark SQL to rename the column in Hive can not be made => remember hive table are made immutable and can not be updated
-#spark.sql("USE {}".format(hive_database_name))
-#spark.sql("ALTER TABLE {} REPLACE COLUMN ID POLICY_NUMBER INT".format(hive_table_name))
-
-#
 
 # Specify the column to be modified
 columns_to_modify = "STATUS"
