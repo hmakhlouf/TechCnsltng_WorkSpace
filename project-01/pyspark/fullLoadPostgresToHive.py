@@ -40,10 +40,10 @@ df_postgres.show(3)
 
 
 # Specify the column to be modified
-columns_to_modify = "STATUS"
+columns_to_modify = "MSTATUS"
 
 # Modify string values by removing "z_"
-postgres_df = df_postgres.withColumn(columns_to_modify, regexp_replace(col(columns_to_modify), "^z_", ""))
+df_postgres = df_postgres.withColumn(columns_to_modify, regexp_replace(col(columns_to_modify), "^z_", ""))
 
 
 #-+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+-
