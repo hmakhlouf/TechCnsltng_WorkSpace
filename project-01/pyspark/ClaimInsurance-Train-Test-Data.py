@@ -1,5 +1,6 @@
 from os.path import abspath
 from pyspark.sql import SparkSession
+from pyspark.sql.functions import col
 
 # Create spark session with hive enabled
 spark = SparkSession.builder \
@@ -24,7 +25,7 @@ df_postgres.show()
 
 
 # Transformations
-
+df_postgres = df_postgres.withColumn("id", col("id").cast("int"))
 
 # Split data into train and test (60% train, 40% test)
 train_df, test_df = df_postgres.randomSplit([0.6, 0.4], seed=42)

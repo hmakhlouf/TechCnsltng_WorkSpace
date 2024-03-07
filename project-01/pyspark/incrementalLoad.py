@@ -34,6 +34,8 @@ existing_hive_data.show(3)
 incremental_data_df = new_data.join(existing_hive_data.select("id"), new_data["id"] == existing_hive_data["id"], "left_anti")
 incremental_data_df.show()
 
+incremental_data_df.count()
+
 # 5.  Adding the incremental_data DataFrame to the existing hive table
 # write & append to the Hive table
 incremental_data_df.write.mode("append").insertInto("{}.{}".format(hive_database_name, hive_table_name))
