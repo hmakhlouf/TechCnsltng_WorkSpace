@@ -1,0 +1,8 @@
+[0m[[0m[0mdebug[0m] [0m[0m> Exec(intialized, None, None)[0m
+[0m[[0m[31merror[0m] [0m[0mNot a valid command: intialized (similar: initialize)[0m
+[0m[[0m[31merror[0m] [0m[0mNot a valid project ID: intialized[0m
+[0m[[0m[31merror[0m] [0m[0mExpected ':'[0m
+[0m[[0m[31merror[0m] [0m[0mNot a valid key: intialized (similar: initialize, normalizedName)[0m
+[0m[[0m[31merror[0m] [0m[0mintialized[0m
+[0m[[0m[31merror[0m] [0m[0m          ^[0m
+[0m[[0m[0mdebug[0m] [0m[0m> Exec(idea-shell, None, None)[0m
