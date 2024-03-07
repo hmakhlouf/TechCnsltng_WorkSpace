@@ -41,7 +41,8 @@ incremental_data_df.show()
 print('---------------------------------------------------------')
 print('------------------COUNTING INCREMENT RECORDS ------------')
 print('---------------------------------------------------------')
-incremental_data_df.count()
+# counting the number of the new records added to postgres tables 
+print('new records added count',incremental_data_df.count())
 
 # 5.  Adding the incremental_data DataFrame to the existing hive table
 # write & append to the Hive table
