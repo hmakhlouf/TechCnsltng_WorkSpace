@@ -1,5 +1,6 @@
 from os.path import abspath
 from pyspark.sql import SparkSession
+from pyspark.sql.functions import regexp_replace
 
 # Create spark session with hive enabled
 spark = SparkSession.builder \
@@ -29,9 +30,21 @@ df_postgres.show(3)
 #-+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+-
 #-+-+--+-+--+-+--+-+--+-+-Transformations-+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--
 #-+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+-
-#Rename column from "ID" to "policy_number"
+
+# Rename column from "ID" to "policy_number"
 postgres_df = postgres_df.withColumnRenamed("ID", "POLICY_NUMBER")
 postgres_df.show(3)
+# Use Spark SQL to rename the column in Hive can not be made => remember hive table are made immutable and can not be updated
+#spark.sql("USE {}".format(hive_database_name))
+#spark.sql("ALTER TABLE {} REPLACE COLUMN ID POLICY_NUMBER INT".format(hive_table_name))
+
+
+# Specify the column to be modified
+columns_to_modify = "STATUS"
+
+# Modify string values by removing "z_"
+postgres_df = postgres_df.withColumn(columns_to_modify, regexp_replace(col(columns_to_modify), "^z_", ""))
+
 
 #-+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+-
 #-+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+-
