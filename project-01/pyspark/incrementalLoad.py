@@ -72,8 +72,8 @@ if incremental_data_df.count() > 0:
     incremental_data_df.write.mode("append").insertInto("{}.{}".format(hive_database_name, hive_table_name))
     print("Appended {} new records to Hive table.".format(incremental_data_df.count()))
 
-newDataHive_df = spark.sql("SELECT * FROM project1db.carinsuranceclaims cic WHERE cic.ID = 1 OR cic.ID = 2")
-newDataHive_df.show()
+    newDataHive_df = spark.sql("SELECT * FROM project1db.carinsuranceclaims cic WHERE cic.ID = 1 OR cic.ID = 2")
+    newDataHive_df.show()
 
 else:
     print("No new records been inserted in PostgresSQL table.")
