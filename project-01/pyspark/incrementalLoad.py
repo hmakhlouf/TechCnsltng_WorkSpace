@@ -35,10 +35,14 @@ postgres_df.show(3)
 postgres_df = postgres_df.withColumnRenamed("ID", "POLICY_NUMBER")
 postgres_df.show(3)
 
-# Use Spark SQL to rename the column in Hive
-spark.sql("USE {}".format(hive_database_name))
-spark.sql("ALTER TABLE {} REPLACE COLUMN ID POLICY_NUMBER INT".format(hive_table_name))
+# Use Spark SQL to rename the column in Hive can not be made => remember hive table are made immutable and can not be updated
+#spark.sql("USE {}".format(hive_database_name))
+#spark.sql("ALTER TABLE {} REPLACE COLUMN ID POLICY_NUMBER INT".format(hive_table_name))
 
+# Create a new Hive table with the desired schema by initiating overwrite full load
+postgres_df.write.mode("overwrite").saveAsTable("{}.{}".format(hive_database_name, hive_table_name))
+
+# Read and show existing data in the new Hive table with the new column name
 
 #-+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+-
 #-+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+-
@@ -50,18 +54,14 @@ existing_hive_data = spark.read.table("{}.{}".format(hive_database_name, hive_ta
 existing_hive_data.show(3)
 
 # 4. Determine the incremental data
-print('---------------------------------------------------------')
-print('------------------Incremental data-----------------------')
-print('---------------------------------------------------------')
 incremental_data_df = postgres_df.join(existing_hive_data.select("id"), postgres_df["id"] == existing_hive_data["id"], "left_anti")
+print('------------------Incremental data-----------------------')
 incremental_data_df.show()
 
 
 # counting the number of the new records added to postgres tables
-print('---------------------------------------------------------')
-print('------------------COUNTING INCREMENT RECORDS ------------')
-print('---------------------------------------------------------')
 new_records = incremental_data_df.count()
+print('------------------COUNTING INCREMENT RECORDS ------------')
 print('new records added count', new_records)
 
 # 5.  Adding the incremental_data DataFrame to the existing hive table
