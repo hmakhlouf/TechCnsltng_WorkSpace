@@ -23,8 +23,18 @@ postgres_table_name = "car_insurance_claims"
 
 # Read data from PostgresSQL
 df_postgres = spark.read.jdbc(url=postgres_url, table=postgres_table_name, properties=postgres_properties)
-df_postgres.show()
+df_postgres.show(3)
 
+
+#-+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+-
+#-+-+--+-+--+-+--+-+--+-+-Transformations-+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--
+#-+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+-
+#Rename column from "ID" to "policy_number"
+postgres_df = postgres_df.withColumnRenamed("ID", "POLICY_NUMBER")
+postgres_df.show(3)
+
+#-+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+-
+#-+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+-
 
 ## 2. load df_postgres to hive table
 # Create database

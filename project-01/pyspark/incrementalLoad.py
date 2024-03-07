@@ -1,6 +1,6 @@
 from os.path import abspath
 from pyspark.sql import SparkSession
-from pyspark.sql.functions import col
+from pyspark.sql.functions import col, regexp_replace
 
 # Create spark session with hive enabled
 spark = SparkSession.builder.appName("carInsuranceClaimsApp").enableHiveSupport().getOrCreate()
@@ -27,28 +27,6 @@ postgres_df = spark.read.jdbc(url=postgres_url, table=postgres_table_name, prope
 postgres_df.show(3)
 
 
-#-+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+-
-#-+-+--+-+--+-+--+-+--+-+-Transformations-+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--
-#-+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+-
-
-# Rename column from "ID" to "policy_number"
-postgres_df = postgres_df.withColumnRenamed("ID", "POLICY_NUMBER")
-postgres_df.show(3)
-
-# Use Spark SQL to rename the column in Hive can not be made => remember hive table are made immutable and can not be updated
-#spark.sql("USE {}".format(hive_database_name))
-#spark.sql("ALTER TABLE {} REPLACE COLUMN ID POLICY_NUMBER INT".format(hive_table_name))
-
-# Create a new Hive table with the desired schema by initiating overwrite full load
-postgres_df.write.mode("overwrite").saveAsTable("{}.{}".format(hive_database_name, hive_table_name))
-
-# Read and show existing data in the new Hive table with the new column name
-
-#-+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+-
-#-+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+-
-
-
-
 # 3. read and show the existing_data in hive table
 existing_hive_data = spark.read.table("{}.{}".format(hive_database_name, hive_table_name))    #table("project1db.carinsuranceclaims")
 existing_hive_data.show(3)
@@ -71,14 +49,43 @@ if incremental_data_df.count() > 0:
     # Append new rows to Hive table
     incremental_data_df.write.mode("append").insertInto("{}.{}".format(hive_database_name, hive_table_name))
     print("Appended {} new records to Hive table.".format(incremental_data_df.count()))
-
-    newDataHive_df = spark.sql("SELECT * FROM project1db.carinsuranceclaims cic WHERE cic.ID = 1 OR cic.ID = 2")
-    newDataHive_df.show()
-
 else:
     print("No new records been inserted in PostgresSQL table.")
 
 
+
+#-+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+-
+#-+-+--+-+--+-+--+-+--+-+-Transformations-+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--
+#-+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+-
+
+# Rename column from "ID" to "policy_number"
+postgres_df = postgres_df.withColumnRenamed("ID", "POLICY_NUMBER")
+postgres_df.show(3)
+# Use Spark SQL to rename the column in Hive can not be made => remember hive table are made immutable and can not be updated
+#spark.sql("USE {}".format(hive_database_name))
+#spark.sql("ALTER TABLE {} REPLACE COLUMN ID POLICY_NUMBER INT".format(hive_table_name))
+
+#
+
+# Specify the column to be modified
+columns_to_modify = "STATUS"
+
+# Modify string values by removing "z_"
+postgres_df = postgres_df.withColumn(columns_to_modify, regexp_replace(col(columns_to_modify), "^z_", ""))
+
+
+
+
+# Create a new Hive table with the desired schema by initiating overwrite full load
+postgres_df.write.mode("overwrite").saveAsTable("{}.{}".format(hive_database_name, hive_table_name))
+
+
+
+# Read and show the new Hive table
+newDataHive_df = spark.sql("SELECT * FROM project1db.carinsuranceclaims")
+newDataHive_df.show()
+#-+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+-
+#-+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+-
 
 
 # 7. Stop Spark session
