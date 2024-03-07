@@ -30,6 +30,10 @@ new_data.show(3)
 existing_hive_data = spark.read.table("{}.{}".format(hive_database_name, hive_table_name))    #table("project1db.carinsuranceclaims")
 existing_hive_data.show(3)
 
+
+print('---------------------------------------------------------'
+      '----------------Incremental data-------------------------'
+      '--------------------------------------------------------')
 # 4. Determine the incremental data
 incremental_data_df = new_data.join(existing_hive_data.select("id"), new_data["id"] == existing_hive_data["id"], "left_anti")
 incremental_data_df.show()
