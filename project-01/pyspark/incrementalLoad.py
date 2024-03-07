@@ -36,8 +36,9 @@ postgres_df = postgres_df.withColumnRenamed("ID", "POLICY_NUMBER")
 postgres_df.show(3)
 
 # Use Spark SQL to rename the column in Hive
-spark.sql("USE " + hive_database_name)
-spark.sql("ALTER TABLE" + hive_table_name + "CHANGE COLUMN ID POLICY_NUMBER INT")
+spark.sql("USE {}".format(hive_database_name))
+spark.sql("ALTER TABLE {} CHANGE COLUMN ID POLICY_NUMBER INT".format(hive_table_name))
+
 
 #-+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+-
 #-+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+-
@@ -70,7 +71,7 @@ if incremental_data_df.count() > 0:
     incremental_data_df.write.mode("append").insertInto("{}.{}".format(hive_database_name, hive_table_name))
     print("Appended {} new records to Hive table.".format(incremental_data_df.count()))
 else:
-    print("No new records been inserted in PostgreSQL table.")
+    print("No new records been inserted in PostgresSQL table.")
 
 # 6. Show the new  records in hive table
 newDataHive_df = spark.sql("SELECT * FROM project1db.carinsuranceclaims cic WHERE cic.ID = 1 OR cic.ID = 2")
