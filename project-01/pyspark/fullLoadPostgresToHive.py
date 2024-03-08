@@ -28,20 +28,15 @@ df_postgres.show(3)
 
 
 #-+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+-
-#-+-+--+-+--+-+--+-+--+-+-Transformations-+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--
+#-+-+--+-+--+-+--+-+--+-+-Transformations-+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+-
 #-+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+-
 
 # Rename column from "ID" to "policy_number"
 df_postgres = df_postgres.withColumnRenamed("ID", "POLICY_NUMBER")
 df_postgres.show(3)
-# Use Spark SQL to rename the column in Hive can not be made => remember hive table are made immutable and can not be updated
-#spark.sql("USE {}".format(hive_database_name))
-#spark.sql("ALTER TABLE {} REPLACE COLUMN ID POLICY_NUMBER INT".format(hive_table_name))
-
 
 # Specify the column to be modified
 columns_to_modify = ["MSTATUS", "GENDER", "EDUCATION", "OCCUPATION", "CAR_TYPE", "URBANICITY"]
-
 # Modify string values by removing "z_"
 for column in columns_to_modify:
     df_postgres = df_postgres.withColumn(column, regexp_replace(col(column), "^z_", ""))

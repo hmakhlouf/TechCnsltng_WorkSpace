@@ -53,12 +53,6 @@ for column in columns_to_modify:
 
 # 3. read and show the existing_data in hive table
 existing_hive_data = spark.read.table("{}.{}".format(hive_database_name, hive_table_name))    #table("project1db.carinsuranceclaims")
-
-# Modify string values by removing "z_"
-# Specify the column to be modified
-# columns_to_modify = ["MSTATUS", "GENDER", "EDUCATION", "OCCUPATION", "CAR_TYPE", "URBANICITY"]
-# for column in columns_to_modify:
-#     existing_hive_data = existing_hive_data.withColumn(column, regexp_replace(col(column), "^z_", ""))
 existing_hive_data.show(3)
 
 # 4. Determine the incremental data
