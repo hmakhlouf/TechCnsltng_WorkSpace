@@ -44,7 +44,7 @@ columns_to_modify = ["MSTATUS", "GENDER", "EDUCATION", "OCCUPATION", "CAR_TYPE",
 
 # Modify string values by removing "z_"
 for column in columns_to_modify:
-    df_postgres = df_postgres.withColumn(column , regexp_replace(col(column ), "^z_", ""))
+    df_postgres = df_postgres.withColumn(column, regexp_replace(col(column), "^z_", ""))
 
 
 #-+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+-

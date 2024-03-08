@@ -27,11 +27,39 @@ postgres_df = spark.read.jdbc(url=postgres_url, table=postgres_table_name, prope
 postgres_df.show(3)
 
 
+#-+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+-
+#-+-+--+-+--+-+--+-+--+-+-Transformations-+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--
+#-+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+-
+
+# Rename column from "ID" to "policy_number"
+postgres_df = postgres_df.withColumnRenamed("ID", "POLICY_NUMBER")
+postgres_df.show(3)
+# Use Spark SQL to rename the column in Hive can not be made => remember hive table are made immutable and can not be updated
+#spark.sql("USE {}".format(hive_database_name))
+#spark.sql("ALTER TABLE {} REPLACE COLUMN ID POLICY_NUMBER INT".format(hive_table_name))
+
+
+# Specify the column to be modified
+columns_to_modify = ["MSTATUS", "GENDER", "EDUCATION", "OCCUPATION", "CAR_TYPE", "URBANICITY"]
+
+# Modify string values by removing "z_"
+for column in columns_to_modify:
+    postgres_df = postgres_df.withColumn(column, regexp_replace(col(column), "^z_", ""))
+
+
+#-+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+-
+#-+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+-
+
+
 # 3. read and show the existing_data in hive table
 existing_hive_data = spark.read.table("{}.{}".format(hive_database_name, hive_table_name))    #table("project1db.carinsuranceclaims")
+
+# Modify string values by removing "z_"
+# Specify the column to be modified
+# columns_to_modify = ["MSTATUS", "GENDER", "EDUCATION", "OCCUPATION", "CAR_TYPE", "URBANICITY"]
+# for column in columns_to_modify:
+#     existing_hive_data = existing_hive_data.withColumn(column, regexp_replace(col(column), "^z_", ""))
 existing_hive_data.show(3)
-
-
 
 # 4. Determine the incremental data
 #incremental_data_df = postgres_df.join(existing_hive_data.select("id"), postgres_df["id"] == existing_hive_data["id"], "left_anti")
