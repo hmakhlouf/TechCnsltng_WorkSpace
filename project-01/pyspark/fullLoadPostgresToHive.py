@@ -46,7 +46,7 @@ df_postgres.show(3)
 spark.sql("CREATE DATABASE IF NOT EXISTS hocinedb")
 
 # Hive database and table names
-hive_database_name = "hocinedbdb"
+hive_database_name = "hocinedb"
 hive_table_name = "carInsuranceClaims"
 
 # Create Hive Internal table over project1db
