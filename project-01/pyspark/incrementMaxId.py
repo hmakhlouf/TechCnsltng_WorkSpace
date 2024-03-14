@@ -30,10 +30,9 @@ more_data.show(3)
 
 # 3- transformations
 
-more_data.withColumnRenamed("ID", "POLICY_NUMBER")
+more_data = more_data.withColumnRenamed("ID", "POLICY_NUMBER")
 # Specify the column to be modified
 columns_to_modify = ["MSTATUS", "GENDER", "EDUCATION", "OCCUPATION", "CAR_TYPE", "URBANICITY"]
-
 # Modify string values by removing "z_"
 for column in columns_to_modify:
     more_data = more_data.withColumn(column, regexp_replace(col(column), "^z_", ""))
