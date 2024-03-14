@@ -41,7 +41,6 @@ more_data.printSchema()
 
 
 query = 'SELECT * FROM car_insurance_claims WHERE POLICY_NUMBER > ' + str(m_id)
-
 more_data = spark.sql(query)
 
 more_data.count()
