@@ -43,10 +43,10 @@ df_postgres.show(3)
 
 ## 2. load df_postgres to hive table
 # Create database
-spark.sql("CREATE DATABASE IF NOT EXISTS hocinedb")
+spark.sql("CREATE DATABASE IF NOT EXISTS project1db")
 
 # Hive database and table names
-hive_database_name = "hocinedb"
+hive_database_name = "project1db"
 hive_table_name = "carInsuranceClaims"
 
 # Create Hive Internal table over project1db
