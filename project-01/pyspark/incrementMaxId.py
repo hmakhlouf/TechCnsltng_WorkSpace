@@ -40,7 +40,10 @@ for column in columns_to_modify:
 more_data.printSchema()
 
 
-query = 'SELECT * FROM car_insurance_claims WHERE POLICY_NUMBER > ' + str(m_id)
+# Register the DataFrame as a temporary view
+more_data.createOrReplaceTempView("my_car_insurance_claims")
+# Run a SQL query on the DataFrame
+query = 'SELECT * FROM my_car_insurance_claims WHERE POLICY_NUMBER > ' + str(m_id)
 more_data = spark.sql(query)
 
 more_data.count()
