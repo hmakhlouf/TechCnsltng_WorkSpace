@@ -19,7 +19,7 @@ postgres_table_name = "car_insurance_claims"
 
 # hive database and table names
 hive_database_name = "project1db"
-hive_table_name = "carinsuranceclaims"
+hive_table_name = "carinsuranceclaim1"
 
 
 # 2. read & show new dataset from PostgresSQL:
