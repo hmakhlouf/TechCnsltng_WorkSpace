@@ -44,9 +44,10 @@ more_data.printSchema()
 more_data.createOrReplaceTempView("my_car_insurance_claims")
 # Run a SQL query on the DataFrame
 query = 'SELECT * FROM my_car_insurance_claims WHERE POLICY_NUMBER > ' + str(m_id)
-more_data = spark.sql(query)
+new_records = spark.sql(query)
 
-more_data.count()
+print('------------------COUNTING INCREMENT RECORDS ------------')
+print('new records added count', new_records)
 
 more_data.write.mode("append").saveAsTable("hocinedb.carinsuranceclaims")
 
