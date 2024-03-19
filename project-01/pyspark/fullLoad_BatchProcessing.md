@@ -4,7 +4,6 @@
 Batch data processing involves the execution of a series of data processing tasks on a predefined dataset. In this documentation, we'll outline the process of performing a full load, where the entire dataset from a source (PostgreSQL) is processed and loaded into a target (Hive) database using PySpark. We'll also highlight the role of GitHub for code hosting and Jenkins for CI/CD orchestration.
 
 
-
 ```
 # from os.path import abspath
 from pyspark.sql import SparkSession
@@ -94,6 +93,10 @@ Step 6: Stopping Spark Session
 
 The Spark session is stopped after completing the data processing tasks.
 ## 3. GitHub and Jenkins Integration:
+link to fullLoadPostgresToHive.py file in GitHub repository : [https://github.com/Asadkardame/BD_Colab/blob/hocine_branch/hocine_carInsuranceClaims/pyspark/fullLoadPostgresToHive.py ] 
+
+link to Jenkins full load pyspark job: http://3.9.191.104:8080/view/Hocine/job/hocine_pysparkapp_job/
+
 
 GitHub serves as the repository for hosting the PySpark code. It allows version control, collaboration, and code sharing.
 Jenkins is utilized for Continuous Integration/Continuous Deployment (CI/CD) processes. It monitors GitHub repositories for changes and triggers automated builds and tests whenever new code is pushed.
