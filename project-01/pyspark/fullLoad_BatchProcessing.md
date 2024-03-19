@@ -4,6 +4,16 @@
 Batch data processing involves the execution of a series of data processing tasks on a predefined dataset. In this documentation, we'll outline the process of performing a full load, where the entire dataset from a source (PostgreSQL) is processed and loaded into a target (Hive) database using PySpark. We'll also highlight the role of GitHub for code hosting and Jenkins for CI/CD orchestration.
 
 
+## The full load process involves the following steps:
+
+1. Importing necessary modules.
+2. Creating a Spark session with Hive support.
+3. Establishing connection to PostgreSQL and reading data.
+4. Performing data transformations.
+5. Creating Hive table and loading data.
+6. Stopping Spark session.
+
+## PySpark full load Code Overview: 
 ```
 # from os.path import abspath
 from pyspark.sql import SparkSession
@@ -30,7 +40,7 @@ df_postgres.show(3)
 
 
 #-+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+-
-#-+-+--+-+--+-+--+-+--+-+-Transformations-+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+-
+## 2. -+-+--+-+--+-+--+-+--+-+-Transformations-+-+--+-+--+-+--+-+--+-+--+-+--+-+-
 #-+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+-
 
 # Rename column from "ID" to "policy_number"
@@ -48,28 +58,28 @@ df_postgres.show(3)
 #-+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+-
 #-+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+-
 
-## 2. load df_postgres to hive table
+## 3. load df_postgres to hive table
 # Create database
 spark.sql("CREATE DATABASE IF NOT EXISTS project1db")
+
+# 3. Create Hive Internal table over project1db
 
 # Hive database and table names
 hive_database_name = "project1db"
 hive_table_name = "carInsuranceClaims"
 
-# Create Hive Internal table over project1db
 df_postgres.write.mode('overwrite').saveAsTable("{}.{}".format(hive_database_name, hive_table_name))
 
-# Read Hive table
+# 4. Read Hive table
 df = spark.read.table("{}.{}".format(hive_database_name, hive_table_name))
 df.show()
 
-# Stop Spark session
+# 5. Stop Spark session
 spark.stop()
 
 ```
 
-## 2. PySpark Code Overview:
-The provided PySpark code executes the following steps:
+## 2. The provided PySpark code executes the following steps:
 
 Step 1: Importing Necessary Modules
 
@@ -93,7 +103,7 @@ Step 6: Stopping Spark Session
 
 The Spark session is stopped after completing the data processing tasks.
 ## 3. GitHub and Jenkins Integration:
-link to fullLoadPostgresToHive.py file in GitHub repository : [https://github.com/Asadkardame/BD_Colab/blob/hocine_branch/hocine_carInsuranceClaims/pyspark/fullLoadPostgresToHive.py ] 
+link to fullLoadPostgresToHive.py file in GitHub repository : https://github.com/Asadkardame/BD_Colab/blob/hocine_branch/hocine_carInsuranceClaims/pyspark/fullLoadPostgresToHive.py 
 
 link to Jenkins full load pyspark job: http://3.9.191.104:8080/view/Hocine/job/hocine_pysparkapp_job/
 
