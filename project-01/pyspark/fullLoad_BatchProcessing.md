@@ -1,3 +1,11 @@
+# Batch Data Processing Documentation: Full Load
+
+## 1. Introduction:
+Batch data processing involves the execution of a series of data processing tasks on a predefined dataset. In this documentation, we'll outline the process of performing a full load, where the entire dataset from a source (PostgreSQL) is processed and loaded into a target (Hive) database using PySpark. We'll also highlight the role of GitHub for code hosting and Jenkins for CI/CD orchestration.
+
+
+
+```
 # from os.path import abspath
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import regexp_replace, col
@@ -58,3 +66,6 @@ df.show()
 
 # Stop Spark session
 spark.stop()
+
+```
+
