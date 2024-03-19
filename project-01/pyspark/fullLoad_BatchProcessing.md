@@ -69,3 +69,39 @@ spark.stop()
 
 ```
 
+## 2. PySpark Code Overview:
+The provided PySpark code executes the following steps:
+
+Step 1: Importing Necessary Modules
+
+The code imports essential modules from the PySpark library required for data processing.
+Step 2: Creating Spark Session with Hive Support
+
+It creates a Spark session with Hive support enabled, facilitating interaction with Hive databases.
+Step 3: Establishing Connection to PostgreSQL and Reading Data
+
+Connection properties for PostgreSQL are defined.
+Data is read from the PostgreSQL table into a DataFrame.
+Step 4: Data Transformations
+
+Renaming the column "ID" to "POLICY_NUMBER".
+Modifying string values in specific columns by removing the prefix "z_" using regular expressions.
+Step 5: Creating Hive Table and Loading Data
+
+A Hive database is created if it doesn't exist.
+The DataFrame is saved as a Hive table.
+Step 6: Stopping Spark Session
+
+The Spark session is stopped after completing the data processing tasks.
+## 3. GitHub and Jenkins Integration:
+
+GitHub serves as the repository for hosting the PySpark code. It allows version control, collaboration, and code sharing.
+Jenkins is utilized for Continuous Integration/Continuous Deployment (CI/CD) processes. It monitors GitHub repositories for changes and triggers automated builds and tests whenever new code is pushed.
+Jenkins executes the PySpark job defined in the code whenever there's a new commit or code change in the GitHub repository.
+## 4. Explanation:
+
+The code reads data from a PostgreSQL database, performs necessary transformations, and loads it into a Hive table.
+GitHub ensures version control and collaborative development of the PySpark code.
+Jenkins automates the execution of the PySpark job as part of the CI/CD pipeline, ensuring seamless deployment and data processing.
+## 5. Conclusion:
+This documentation outlines the process of batch data processing for a full load using PySpark, highlighting the integration of GitHub and Jenkins for code hosting and CI/CD orchestration. The provided PySpark code efficiently transfers data from a PostgreSQL source to a Hive target, ensuring seamless data integration and processing.
